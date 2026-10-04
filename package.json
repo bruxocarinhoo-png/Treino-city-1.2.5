@@ -1,0 +1,10 @@
+{
+  "name": "treino-city-online-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Servidor de salas privadas para o protótipo Treino City",
+  "main": "index.js",
+  "scripts": {"start": "node index.js"},
+  "engines": {"node": ">=18"},
+  "dependencies": {"ws": "^8.18.0"}
+}
