@@ -1,0 +1,7 @@
+Treino City — atualização para servir o jogo pelo Render (sem Netlify)
+
+No GitHub, no repositório do servidor, substitua o index.js pelo index.js deste pacote e adicione o index.html à raiz. Não substitua package.json. Faça Commit changes. O Render deve iniciar um novo deploy automaticamente.
+
+Após o deploy, a página do jogo abre em https://treino-city-1-2-5.onrender.com/ e o WebSocket continua em wss://treino-city-1-2-5.onrender.com/ws. O HTML preenche esse endereço automaticamente quando aberto pelo domínio do Render.
+
+No celular, abra o endereço da página do jogo para jogar no navegador, sem baixar. O primeiro carregamento pode demorar enquanto o serviço do Render desperta.

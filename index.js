@@ -12,7 +12,8 @@ fs.mkdirSync(DATA_DIR,{recursive:true});
 let accounts={};
 try{accounts=JSON.parse(fs.readFileSync(DATA_FILE,'utf8'))||{}}catch(_){accounts={}}
 function persist(){const temp=DATA_FILE+'.tmp';fs.writeFileSync(temp,JSON.stringify(accounts,null,2));fs.renameSync(temp,DATA_FILE)}
-const httpServer=http.createServer((req,res)=>{if(req.url==='/health'){res.writeHead(200,{'content-type':'application/json'});return res.end(JSON.stringify({ok:true,rooms:rooms.size,online:sockets.size}))}res.writeHead(200,{'content-type':'text/plain; charset=utf-8'});res.end('Treino City online server')});
+const GAME_FILE=path.join(__dirname,'index.html');
+const httpServer=http.createServer((req,res)=>{const pathname=new URL(req.url||'/', 'http://localhost').pathname;if(pathname==='/health'){res.writeHead(200,{'content-type':'application/json'});return res.end(JSON.stringify({ok:true,rooms:rooms.size,online:sockets.size}))}if(pathname==='/'||pathname==='/index.html'){if(!fs.existsSync(GAME_FILE)){res.writeHead(503,{'content-type':'text/plain; charset=utf-8'});return res.end('Jogo ainda não foi publicado.')}res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-cache'});return fs.createReadStream(GAME_FILE).pipe(res)}res.writeHead(404,{'content-type':'text/plain; charset=utf-8'});res.end('Not found')});
 const wss=new WebSocketServer({server:httpServer,path:'/ws',maxPayload:8192});
 const sockets=new Map();
 const rooms=new Map();
